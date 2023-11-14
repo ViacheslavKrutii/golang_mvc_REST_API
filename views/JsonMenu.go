@@ -1,8 +1,8 @@
 package views
 
 import (
-	"Proj/golang_mvc_REST_API/models"
 	"encoding/json"
+	"golang_mvc_REST_API/models"
 )
 
 func JsonMenu(m *models.Menu) []byte {

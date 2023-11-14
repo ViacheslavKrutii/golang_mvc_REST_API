@@ -1,12 +1,12 @@
 package models
 
-type hryvna float32
+type Hryvna float32
 
-type menuItem struct {
-	name  string
-	price hryvna
+type MenuItem struct {
+	Name  string `json:"dish"`
+	Price Hryvna `json:"prise"`
 }
 
 type Menu struct {
-	MenuItems []menuItem
+	MenuItems []MenuItem `json:"positions"`
 }

@@ -1,4 +1,4 @@
-module Proj/golang_mvc_REST_API
+module golang_mvc_REST_API
 
 go 1.21.4
 

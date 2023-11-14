@@ -1,3 +1,3 @@
 package models
 
-type order map[menuItem]int
+type Order map[MenuItem]int

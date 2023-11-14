@@ -1,6 +1,6 @@
 package models
 
-type user struct {
-	name  string
-	order order
+type User struct {
+	Name  string
+	Order Order
 }
