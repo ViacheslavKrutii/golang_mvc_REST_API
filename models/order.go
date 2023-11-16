@@ -6,6 +6,6 @@ type Order struct {
 }
 
 type DeleteOrderRequest struct {
-	User    User
-	IdOrder int
+	User    User `json:"user"`
+	IdOrder int`json:"idOrder"`
 }
