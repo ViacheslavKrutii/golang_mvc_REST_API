@@ -1,3 +1,11 @@
 package models
 
-type Order map[MenuItem]int
+type Order struct {
+	OrderBody map[string]int `json:"order"`
+	User      User           `json:"user"`
+}
+
+type DeleteOrderRequest struct {
+	User    User
+	IdOrder int
+}
