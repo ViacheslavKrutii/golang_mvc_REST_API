@@ -6,5 +6,5 @@ import (
 
 type DbInterface interface {
 	AddOrder(models.Order)
-	DeleteOrder(models.DeleteOrderRequest)
+	DeleteOrder(models.DeleteOrderRequest) error
 }

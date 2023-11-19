@@ -14,9 +14,8 @@ type OrderController struct {
 	db db.DbInterface
 }
 
-func (o *OrderController) AddDB(newDB db.DbInterface) {
+func (o *OrderController) SetDB(newDB db.DbInterface) {
 	o.db = newDB
-
 }
 
 func (o OrderController) MakeOrderController(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +60,13 @@ func (o OrderController) DeleteOrderController(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	o.db.DeleteOrder(newDeleteRequest)
+	err = o.db.DeleteOrder(newDeleteRequest)
+	if err != nil {
+		log.Println(err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
 }
 
 func Example(w http.ResponseWriter, r *http.Request) {

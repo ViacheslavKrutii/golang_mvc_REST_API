@@ -15,7 +15,7 @@ func main() {
 	datastore := db.NewInMemoryState()
 
 	orderController := controllers.OrderController{}
-	orderController.AddDB(datastore)
+	orderController.SetDB(datastore)
 	menuController := controllers.MenuController{}
 	menuController.AddMenu(menu1)
 
