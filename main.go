@@ -10,28 +10,21 @@ import (
 )
 
 func main() {
+
 	menu1 := &models.Menu{MenuItems: []models.MenuItem{{Name: "Борщ", Price: 10}}}
-	db := db.NewInMemoryState()
+	datastore := db.NewInMemoryState()
+
+	orderController := controllers.OrderController{}
+	orderController.AddDB(datastore)
+	menuController := controllers.MenuController{}
+	menuController.AddMenu(menu1)
 
 	r := mux.NewRouter()
 
-	showMenuHandler := func(w http.ResponseWriter, r *http.Request) {
-		controllers.ShowMenuController(w, r, menu1)
-	}
-	makeOrderHandler := func(w http.ResponseWriter, r *http.Request) {
-		controllers.MakeOrderController(w, r, db)
-	}
-	deleteOrderHandler := func(w http.ResponseWriter, r *http.Request) {
-		controllers.DeleteOrderController(w, r, db)
-	}
-	example := func(w http.ResponseWriter, r *http.Request) {
-		controllers.Example(w, r)
-	}
-
-	r.HandleFunc("/menu", showMenuHandler).Methods("GET")
-	r.HandleFunc("/order/make", makeOrderHandler).Methods("POST")
-	r.HandleFunc("/order/delete", deleteOrderHandler).Methods("POST")
-	r.HandleFunc("/order/example", example).Methods("GET")
+	r.HandleFunc("/menu", menuController.ShowMenuController).Methods("GET")
+	r.HandleFunc("/order/make", orderController.MakeOrderController).Methods("POST")
+	r.HandleFunc("/order/delete", orderController.DeleteOrderController).Methods("POST")
+	r.HandleFunc("/order/example", controllers.Example).Methods("GET")
 
 	http.ListenAndServe("localhost:8080", r)
 }

@@ -10,7 +10,16 @@ import (
 	"net/http"
 )
 
-func MakeOrderController(w http.ResponseWriter, r *http.Request, db db.DbInterface) {
+type OrderController struct {
+	db db.DbInterface
+}
+
+func (o *OrderController) AddDB(newDB db.DbInterface) {
+	o.db = newDB
+
+}
+
+func (o OrderController) MakeOrderController(w http.ResponseWriter, r *http.Request) {
 	log.Println("Make order controller")
 	body, err := io.ReadAll(r.Body)
 
@@ -29,11 +38,11 @@ func MakeOrderController(w http.ResponseWriter, r *http.Request, db db.DbInterfa
 		return
 	}
 
-	db.AddOrder(w, r, newOrder)
+	o.db.AddOrder(newOrder)
 
 }
 
-func DeleteOrderController(w http.ResponseWriter, r *http.Request, db db.DbInterface) {
+func (o OrderController) DeleteOrderController(w http.ResponseWriter, r *http.Request) {
 	log.Println("Delete order controller")
 	body, err := io.ReadAll(r.Body)
 
@@ -52,7 +61,7 @@ func DeleteOrderController(w http.ResponseWriter, r *http.Request, db db.DbInter
 		return
 	}
 
-	db.DeleteOrder(w, r, newDeleteRequest)
+	o.db.DeleteOrder(newDeleteRequest)
 }
 
 func Example(w http.ResponseWriter, r *http.Request) {

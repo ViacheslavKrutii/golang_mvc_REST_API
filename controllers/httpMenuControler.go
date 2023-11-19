@@ -6,6 +6,15 @@ import (
 	"net/http"
 )
 
-func ShowMenuController(w http.ResponseWriter, r *http.Request, m *models.Menu) {
-	w.Write(views.JsonMenu(m))
+type MenuController struct {
+	Menu *models.Menu
+}
+
+func (m *MenuController) AddMenu(Menu *models.Menu) {
+	m.Menu = Menu
+
+}
+
+func (m *MenuController) ShowMenuController(w http.ResponseWriter, r *http.Request) {
+	w.Write(views.JsonMenu(m.Menu))
 }
